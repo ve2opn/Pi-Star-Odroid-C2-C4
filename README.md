@@ -1,20 +1,23 @@
 # Pi-star for ODROID-C2 and C4
 
-Inspired from / credits: https://www.pistar.uk/
+Inspired from & Credits go to: https://www.pistar.uk/
 
 ## Hat
 
 HW: https://github.com/phl0/MMDVM_HS_Dual_Hat/blob/master/hardware/r1.3/mmdvm_hs_dual_hat.pdf
+
 FW: https://github.com/juribeparada/MMDVM_HS
 
 ## Boards
 
 https://wiki.odroid.com/odroid-c2/odroid-c2
+
 https://wiki.odroid.com/odroid-c4/odroid-c4
 
 ## OS
 
 C2: [ubuntu-20.04-3.16-minimal-odroid-c2-20210201.img.xz](https://odroid.in/ubuntu_20.04lts/c2/ubuntu-20.04-3.16-minimal-odroid-c2-20210201.img.xz)
+
 C4: [ubuntu-22.04-4.9-minimal-odroid-c4-hc4-20220705.img.xz](https://odroid.in/ubuntu_22.04lts/C4_HC4/ubuntu-22.04-4.9-minimal-odroid-c4-hc4-20220705.img.xz)
 
 # Differences
