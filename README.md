@@ -1,8 +1,12 @@
 # Pi-star for ODROID-C2 and C4
 
 **This is a modification of the famous pi-star DMR hotspot project:**  
-https://www.pistar.uk/
-https://github.com/AndyTaylorTweet
+
+https://www.pistar.uk/  
+https://github.com/AndyTaylorTweet  
+
+The repos are modified and files from the images are used.
+
 
 ## Hat
 
@@ -28,7 +32,7 @@ C2: [ubuntu-20.04-3.16-minimal-odroid-c2-20210201.img.xz](https://odroid.in/ubun
 
 C4: [ubuntu-22.04-4.9-minimal-odroid-c4-hc4-20220705.img.xz](https://odroid.in/ubuntu_22.04lts/C4_HC4/ubuntu-22.04-4.9-minimal-odroid-c4-hc4-20220705.img.xz)
 
-# Differences
+# Differences from Pi-star supported boards
 
  - [Pi-star](https://www.pistar.uk/downloads/) project provides **armhf** images for Pi and ODROID-XU4. Unfortunately, these don't run directly on C2 and C4 boards, which use **aarch64 (arm64)** OS.
  - Ubuntu images for C2/C4 mount a partition to **/media/boot** not to **/boot** so many pi-star scripts need a modification
@@ -71,9 +75,20 @@ apt install -y linux-libc-dev:armhf
 apt install -y libc6-dev:armhf
 reboot
 ```
-- Add needed packages:
+- Get the essentials from my extraction:
 ```
-apt install -y ntp avahi-daemon miniupnpc file zip git curl net-tools python2
+cd /tmp
+wget https://github.com/ve2opn/Pi-Star-Odroid-C2-C4/releases/download/1.1/pi-odro-c2-4.tgz
+# Just in case is not first time here
+systemctl stop nginx
+systemctl stop php7.0-fpm
+tar zxvf pi-odro-c2-4.tgz -C /
+# For C4 only -  execute following
+# mv /etc/pistar-release-C4 /etc/pistar-release
+```
+- Add packages:
+```
+apt install -y ntp avahi-daemon miniupnpc file zip git curl net-tools python2 stm32flash
 ln /usr/bin/python2 /usr/bin/python
 ```
 - Add and check PHP7.0: https://tecadmin.net/install-php-ubuntu-20-04/
@@ -86,14 +101,7 @@ apt install -y php7.0-cli php7.0-common php7.0-fpm php7.0-json php7.0-mbstring p
 apt list --installed | grep -i php
 systemctl status php7.0-fpm
 ```
-- Get the essentials from my extraction:
-```
-cd /tmp
-wget https://github.com/ve2opn/Pi-Star-Odroid-C2-C4/releases/download/1.0/pi-odro-c2-4.tgz
-tar zxvf pi-odro-c2-4.tgz -C /
-# For C4 only -  execute following
-# mv /etc/pistar-release-C4 /etc/pistar-release
-```
+
 - Add 2 users: (password raspberry)
 ```
 adduser pi-star
@@ -170,12 +178,12 @@ reboot
 modprobe aml_i2c
 echo "aml_i2c" | sudo tee /etc/modules
 ```
-- Add HAT FW upgrading capabilities:
-```
-apt install stm32flash
-```
-- Use this script for FW update
+- Use this script for FW update of the HAT
 ```
 /home/pi-star/install_fw_hsdualhat.sh
+``` 
+- Use this script for recreating the essentials tgz
+```
+tar zcvf /tmp/pi-odro-c2-4.tgz -T /home/pi-star/file-list
 ```
 - Enjoy
