@@ -159,4 +159,17 @@ systemctl enable ysfgateway.service
 systemctl enable ysfparrot.service
 reboot
 ```
+ - For C2 only : OLED on /dev/i2c-1, 3(SDA), 5(SCL) activate: (permanent)
+ ```
+modprobe aml_i2c
+echo "aml_i2c" | sudo tee /etc/modules
+```
+- Add HAT FW upgrading capabilities:
+```
+apt install stm32flash
+```
+- Use this script for FW update
+```
+/home/pi-star/install_fw_hsdualhat.sh
+```
 - Enjoy
