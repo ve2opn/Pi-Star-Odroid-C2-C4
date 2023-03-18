@@ -1,8 +1,12 @@
 # Pi-star for ODROID-C2 and C4
 
-Inspired from & Credits go to: https://www.pistar.uk/
+**This is a modification of the famous pi-star DMR hotspot project:**  
+https://www.pistar.uk/
+https://github.com/AndyTaylorTweet
 
 ## Hat
+
+![HAT](https://raw.githubusercontent.com/phl0/MMDVM_HS_Dual_Hat/master/mmdvm_hs_dual_hat.png)
 
 HW: https://github.com/phl0/MMDVM_HS_Dual_Hat/blob/master/hardware/r1.3/mmdvm_hs_dual_hat.pdf
 
@@ -10,7 +14,11 @@ FW: https://github.com/juribeparada/MMDVM_HS
 
 ## Boards
 
+![C2](https://dn.odroid.com/homebackup/201602/ODROID-C2.png)
+
 https://wiki.odroid.com/odroid-c2/odroid-c2
+
+![C4](https://wiki.odroid.com/_media/odroid-c4/c4_k.jpg)
 
 https://wiki.odroid.com/odroid-c4/odroid-c4
 
@@ -22,10 +30,11 @@ C4: [ubuntu-22.04-4.9-minimal-odroid-c4-hc4-20220705.img.xz](https://odroid.in/u
 
 # Differences
 
- - [Pi-star](https://www.pistar.uk/downloads/) provide **armhf** images for Pi and ODROID-XU4. Unfortunately, these don't run directly on C2 and C4 boards, which use **aarch64 (arm64)** OS.
+ - [Pi-star](https://www.pistar.uk/downloads/) project provides **armhf** images for Pi and ODROID-XU4. Unfortunately, these don't run directly on C2 and C4 boards, which use **aarch64 (arm64)** OS.
  - Ubuntu images for C2/C4 mount a partition to **/media/boot** not to **/boot** so many pi-star scripts need a modification
  - 40-pin connectors on C2 and C4 look similar to Pi but they are different - especially the pins for hat reset / boot.
  - GPIO# are different for each board i.e. GPIO2xx for C2, not like Pi
+ - Processors, chips ...
 
 # Preparation
 
@@ -62,9 +71,10 @@ apt install -y linux-libc-dev:armhf
 apt install -y libc6-dev:armhf
 reboot
 ```
-- Add a part of needed packages:
+- Add needed packages:
 ```
-apt install -y ntp avahi-daemon miniupnpc file zip git curl net-tools
+apt install -y ntp avahi-daemon miniupnpc file zip git curl net-tools python2
+ln /usr/bin/python2 /usr/bin/python
 ```
 - Add and check PHP7.0: https://tecadmin.net/install-php-ubuntu-20-04/
 ```
@@ -79,7 +89,7 @@ systemctl status php7.0-fpm
 - Get the essentials from my extraction:
 ```
 cd /tmp
-wget https://github.com/ve2opn/Pi-Star-Odroid-C2-C4/releases/download/1/pi-odro-c2-4.tgz
+wget https://github.com/ve2opn/Pi-Star-Odroid-C2-C4/releases/download/1.0/pi-odro-c2-4.tgz
 tar zxvf pi-odro-c2-4.tgz -C /
 # For C4 only -  execute following
 # mv /etc/pistar-release-C4 /etc/pistar-release
@@ -95,23 +105,19 @@ usermod -aG sudo mmdvm
 pi-star ALL=(ALL) NOPASSWD: ALL
 www-data ALL=(ALL) NOPASSWD: ALL
 ```
-- Add python2:
-```
-apt install -y python2
-ln /usr/bin/python2 /usr/bin/python
-```
 - Add nginx:
 ```
 apt install -y nginx
-default - keep
-# use q = quit from choices within test 
+# default - keep when asking
+# use q = quit from choices within test if you loop there
+# test
 systemctl status nginx
-# fix sites enabled if needed (remove default)
+# fix sites.enabled if needed (remove the default)
 reboot
 ```
-- Pi-star update - also test pi-star user
+- Pi-star update - also test the pi-star user login
 ```
-login as pi-star
+#login as pi-star
 sudo su
 pistar-update
 #again:
@@ -121,12 +127,12 @@ pistar-update
 pistar-upgrade
 reboot
 ```
-- Tweak add a script to run on startup
+- Tweak add my script to run on startup
 ```
 crontab -e
 @reboot  /home/pi-star/z_my.sh
 ```
-- Get the Web interface, adjust wit your settings / restore conf.
+- Access the Web interface, change to your settings / restore conf.
 - Services check:
 ```
 systemctl daemon-reload
@@ -159,7 +165,7 @@ systemctl enable ysfgateway.service
 systemctl enable ysfparrot.service
 reboot
 ```
- - For C2 only : OLED on /dev/i2c-1, 3(SDA), 5(SCL) activate: (permanent)
+ - **For C2 only** : OLED on /dev/i2c-1, 3(SDA), 5(SCL) activate: (permanent)
  ```
 modprobe aml_i2c
 echo "aml_i2c" | sudo tee /etc/modules
