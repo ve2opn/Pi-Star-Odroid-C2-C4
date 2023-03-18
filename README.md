@@ -6,7 +6,7 @@ https://github.com/AndyTaylorTweet
 
 ## Hat
 
-![HAT](https://raw.githubusercontent.com/phl0/MMDVM_HS_Dual_Hat/master/mmdvm_hs_dual_hat.png | width=100)
+<img src="https://raw.githubusercontent.com/phl0/MMDVM_HS_Dual_Hat/master/mmdvm_hs_dual_hat.png" width="100">
 
 HW: https://github.com/phl0/MMDVM_HS_Dual_Hat/blob/master/hardware/r1.3/mmdvm_hs_dual_hat.pdf
 
@@ -14,11 +14,11 @@ FW: https://github.com/juribeparada/MMDVM_HS
 
 ## Boards
 
-![C2](https://dn.odroid.com/homebackup/201602/ODROID-C2.png | width=100)
+<img src="https://dn.odroid.com/homebackup/201602/ODROID-C2.png" width="100">
 
 https://wiki.odroid.com/odroid-c2/odroid-c2
 
-![C4](https://wiki.odroid.com/_media/odroid-c4/c4_k.jpg | width=100)
+<img src="https://wiki.odroid.com/_media/odroid-c4/c4_k.jpg" width="100">
 
 https://wiki.odroid.com/odroid-c4/odroid-c4
 
