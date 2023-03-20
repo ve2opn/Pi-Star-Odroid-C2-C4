@@ -187,3 +187,11 @@ echo "aml_i2c" | sudo tee /etc/modules
 tar zcvf /tmp/pi-odro-c2-4.tgz -T /home/pi-star/file-list
 ```
 - Enjoy
+
+# Next
+Similar boards to explore, they should work same way , example AML-S905X-CC, see 
+
+[Here](https://www.aliexpress.com/item/1005005163398168.html)
+
+[Here](https://www.loverpi.com/products/libre-computer-aml-s905x-cc-le-potato-with-heatsink-and-wifi-4?variant=39845153701946)
+
