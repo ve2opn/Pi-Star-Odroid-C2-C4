@@ -188,6 +188,16 @@ tar zcvf /tmp/pi-odro-c2-4.tgz -T /home/pi-star/file-list
 ```
 - Enjoy
 
+# Useful links to setup your DMR Gateway 
+
+https://github.com/g4klx/DMRGateway/wiki/Rewrite-Rules  
+
+https://freestar.network/dmrplus-options-explained/  
+
+https://freestar.network/tools/dmrplus-options-generator.php  
+
+
+
 # Next
 Similar boards to explore, they should work same way , example AML-S905X-CC, see 
 
