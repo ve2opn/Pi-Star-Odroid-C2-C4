@@ -30,7 +30,7 @@ https://wiki.odroid.com/odroid-c4/odroid-c4
 
 C2: [ubuntu-20.04-3.16-minimal-odroid-c2-20210201.img.xz](https://odroid.in/ubuntu_20.04lts/c2/ubuntu-20.04-3.16-minimal-odroid-c2-20210201.img.xz)
 
-C4: [ubuntu-22.04-4.9-minimal-odroid-c4-hc4-20220705.img.xz](https://odroid.in/ubuntu_22.04lts/C4_HC4/ubuntu-22.04-4.9-minimal-odroid-c4-hc4-20220705.img.xz)
+C4: [ubuntu-20.04-4.9-minimal-odroid-c4-hc4-20220228.img.xz](https://odroid.in/ubuntu_20.04lts/c4-hc4/ubuntu-20.04-4.9-minimal-odroid-c4-hc4-20220228.img.xz)
 
 # Differences from Pi-star supported boards
 
@@ -73,7 +73,6 @@ apt autoremove && apt autoclean
 apt install -y libstdc++6:armhf
 apt install -y linux-libc-dev:armhf
 apt install -y libc6-dev:armhf
-reboot
 ```
 - Get the essentials from my extraction:
 ```
@@ -88,7 +87,7 @@ tar zxvf pi-odro-c2-4.tgz -C /
 ```
 - Add packages:
 ```
-apt install -y ntp avahi-daemon miniupnpc file zip git curl net-tools python2 stm32flash
+apt install -y ntp avahi-daemon miniupnpc file zip git curl net-tools rsync dosfstools python2 stm32flash
 ln /usr/bin/python2 /usr/bin/python
 ```
 - Add and check PHP7.0: https://tecadmin.net/install-php-ubuntu-20-04/
@@ -109,46 +108,39 @@ adduser mmdvm
 usermod -aG sudo pi-star
 usermod -aG sudo mmdvm
 
-# edit the sudoers, add the lines:
-pi-star ALL=(ALL) NOPASSWD: ALL
-www-data ALL=(ALL) NOPASSWD: ALL
+# check the sudoers last lines should be like  pi-star ALL=(ALL) NOPASSWD: ALL www-data ALL=(ALL) NOPASSWD: ALL
+visudo
+# vi quitting is by Ctrl+
 ```
 - Add nginx:
 ```
 apt install -y nginx
 # default - keep when asking
 # use q = quit from choices within test if you loop there
-# test
+#
+rm /etc/nginx/sites-enabled/default
+systemctl start nginx
 systemctl status nginx
-# fix sites.enabled if needed (remove the default)
-reboot
 ```
-- Pi-star update - also test the pi-star user login
+- Pi-star update, upgrade and add my script to run on startup
 ```
-#login as pi-star
-sudo su
 pistar-update
 #again:
 pistar-update
-#and again
-pistar-update
 pistar-upgrade
+crontab -e
+# add a line at the end: 
+@reboot  /home/pi-star/z_my.sh
+
 reboot
 ```
-- Tweak add my script to run on startup
+- Access the Web interface, activate the hat, change to your settings / restore conf. if you have one.
 ```
-crontab -e
-@reboot  /home/pi-star/z_my.sh
+pistar-findmodem
 ```
-- Access the Web interface, change to your settings / restore conf.
-- Services check:
+- Services enable
 ```
 systemctl daemon-reload
-# systemctl enable xxxxx.service   (start, stop, status)
-# remove if exist: (by miniupnpc install!)
-rm /etc/systemd/system/multi-user.target.wants/pistar-upnp.service 
-rm /etc/systemd/system/multi-user.target.wants/pistar-upnp.timer
-# enable manually for test
 systemctl enable dapnetgateway.service
 systemctl enable dgidgateway.service
 systemctl enable dmr2nxdn.service
@@ -186,6 +178,14 @@ echo "aml_i2c" | sudo tee /etc/modules
 ```
 tar zcvf /tmp/pi-odro-c2-4.tgz -T /home/pi-star/file-list
 ```
+- **Additional notes**  
+  Odroid C4 has issues with I2C so the OLED type 3 may not work.
+  To ensure better startup, you can addn a line to **/home/pi-star/z_my.sh**
+```
+pistar-mmdvmhshatreset
+```
+  also comment there all lines like # /usr/local/sbin/aprsgateway.service start
+
 - Enjoy
 
 # Useful links to setup your DMR Gateway 
@@ -195,7 +195,6 @@ https://github.com/g4klx/DMRGateway/wiki/Rewrite-Rules
 https://freestar.network/dmrplus-options-explained/  
 
 https://freestar.network/tools/dmrplus-options-generator.php  
-
 
 
 # Next
