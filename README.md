@@ -82,8 +82,17 @@ wget https://github.com/ve2opn/Pi-Star-Odroid-C2-C4/releases/download/1.1/pi-odr
 systemctl stop nginx
 systemctl stop php7.0-fpm
 tar zxvf pi-odro-c2-4.tgz -C /
-# For C4 only -  execute following
-# mv /etc/pistar-release-C4 /etc/pistar-release
+```
+- **For C4 only** -  edit /etc/pistar-release to be:
+```
+[Pi-Star]
+Pi-Star_Build_Date = 08-Feb-2021
+Version = 4.1.6
+ircddbgateway =	20181222
+dstarrepeater = 20181222
+MMDVMHost = 20200615_Pi-Star_v4
+kernel = 4.9
+Hardware = Odroid-C4
 ```
 - Add packages:
 ```
