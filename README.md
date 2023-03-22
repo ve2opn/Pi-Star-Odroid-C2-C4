@@ -205,6 +205,7 @@ Then, edit the line in the new boot.ini at cloned SD first partition to match th
 ```
 setenv bootargs "root=UUID=96d8a621-b8f2-45b9-8f95-35bdbb83afc7 ...
 ```
+**Also:** edit the UUID in /etc/fstab
 
 - Enjoy
 
