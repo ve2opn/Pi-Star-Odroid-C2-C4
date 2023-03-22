@@ -195,7 +195,16 @@ pistar-mmdvmhshatreset
 # you can add pistar-update here, too
 # comment all lines like /usr/local/sbin/aprsgateway.service start
 ```
-c) You can use **pistar-clone-c2** or **pistar-clone-c4** commands to create a SD card, 4G or larger. (first chmod +x)
+c) You can use **pistar-clone-c2** or **pistar-clone-c4** commands to create a SD card image that fits to 4GB  
+Mount the newly cloned partition and find by **blkid** command the UUID="xxxx....,   
+Example, /dev/sdc2: UUID="96d8a621-b8f2-45b9-8f95-35bdbb83afc7" TYPE=...
+```
+blkid 
+```
+Then, edit the line in the new boot.ini at cloned SD first partition to match the cloned root partition UUID
+```
+setenv bootargs "root=UUID=96d8a621-b8f2-45b9-8f95-35bdbb83afc7 ...
+```
 
 - Enjoy
 
@@ -206,6 +215,8 @@ https://github.com/g4klx/DMRGateway/wiki/Rewrite-Rules
 https://freestar.network/dmrplus-options-explained/  
 
 https://freestar.network/tools/dmrplus-options-generator.php  
+
+https://www.freedmr.uk/index.php/static-talk-groups-pi-star/
 
 
 # Next
