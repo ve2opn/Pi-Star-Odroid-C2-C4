@@ -188,12 +188,14 @@ echo "aml_i2c" | sudo tee /etc/modules
 tar zcvf /tmp/pi-odro-c2-4.tgz -T /home/pi-star/file-list
 ```
 - **Additional notes**  
-  Odroid C4 has issues with I2C so the OLED type 3 may not work.
-  To ensure better startup, you can addn a line to **/home/pi-star/z_my.sh**
+a) Odroid C4 has issues with I2C so the OLED type 3 may not work.
+b) To ensure better startup, you can add a reset mmdvm hat line to **/home/pi-star/z_my.sh**
 ```
 pistar-mmdvmhshatreset
+# you can add pistar-update here, too
+# comment all lines like /usr/local/sbin/aprsgateway.service start
 ```
-  also comment there all lines like # /usr/local/sbin/aprsgateway.service start
+c) You can use **pistar-clone-c2** or **pistar-clone-c4** commands to create a SD card, 4G or larger. (first chmod +x)
 
 - Enjoy
 
