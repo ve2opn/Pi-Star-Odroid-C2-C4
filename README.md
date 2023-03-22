@@ -96,7 +96,7 @@ Hardware = Odroid-C4
 ```
 - Add packages:
 ```
-apt install -y ntp avahi-daemon miniupnpc file zip git curl net-tools rsync dosfstools python2 stm32flash
+apt install -y ntp avahi-daemon miniupnpc file zip git curl net-tools parted rsync dosfstools python2 stm32flash
 ln /usr/bin/python2 /usr/bin/python
 ```
 - Add and check PHP7.0: https://tecadmin.net/install-php-ubuntu-20-04/
