@@ -215,6 +215,22 @@ d) You can do this to recreate the essentials tgz file from your live system to 
 ```
 tar zcvf /tmp/pi-odro-c2-4.tgz -T /home/pi-star/file-list
 ```
+e) **Shell In A Box** - a forgotten thing can be added to allow the shell in web interface
+```
+apt install shellinabox
+systemctl enable shellinabox
+nano /etc/default/shellinabox
+```
+replace the contents of the file - paste following into /etc/default/shellinabox
+```
+SHELLINABOX_DAEMON_START=1
+SHELLINABOX_PORT=2222
+SHELLINABOX_ARGS="--no-beep --disable-ssl-menu --disable-ssl --css=/etc/shellinabox/options-enabled/00_White\ On\ Black.css"
+```
+restart shellinabox
+```
+systemctl restart shellinabox
+```
 
 ## Useful links to setup your DMR Gateway 
 
