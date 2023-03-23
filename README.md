@@ -74,7 +74,7 @@ apt install -y libstdc++6:armhf
 apt install -y linux-libc-dev:armhf
 apt install -y libc6-dev:armhf
 ```
-- Get the essentials from my extraction:
+ - Get the essentials from my extraction:
 ```
 cd /tmp
 wget https://github.com/ve2opn/Pi-Star-Odroid-C2-C4/releases/download/1.1/pi-odro-c2-4.tgz
@@ -83,34 +83,45 @@ systemctl stop nginx
 systemctl stop php7.0-fpm
 tar zxvf pi-odro-c2-4.tgz -C /
 ```
-- **For C4 only** -  edit /etc/pistar-release to be:
+ - Fix release strings, e.g use editor: nano /etc/pistar-release
+ 
+**For C2:**
 ```
 [Pi-Star]
 Pi-Star_Build_Date = 08-Feb-2021
-Version = 4.1.6
+Version = 4.1.4
+ircddbgateway =	20181222
+dstarrepeater = 20181222
+MMDVMHost = 20200615_Pi-Star_v4
+kernel = 3.16
+Hardware = Odroid-C2
+```
+**For C4:** :
+```
+[Pi-Star]
+Pi-Star_Build_Date = 08-Feb-2021
+Version = 4.1.4
 ircddbgateway =	20181222
 dstarrepeater = 20181222
 MMDVMHost = 20200615_Pi-Star_v4
 kernel = 4.9
 Hardware = Odroid-C4
 ```
-- Add packages:
+ - Add packages:
 ```
 apt install -y ntp avahi-daemon miniupnpc file zip git curl net-tools parted rsync dosfstools python2 stm32flash
 ln /usr/bin/python2 /usr/bin/python
 ```
-- Add and check PHP7.0: https://tecadmin.net/install-php-ubuntu-20-04/
+ - Add and check PHP7.0: https://tecadmin.net/install-php-ubuntu-20-04/
 ```
 apt install -y software-properties-common ca-certificates lsb-release apt-transport-https 
 LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php  
 apt update 
 apt install -y php7.0-cli php7.0-common php7.0-fpm php7.0-json php7.0-mbstring php7.0-opcache php7.0-readline php7.0-zip
-
 apt list --installed | grep -i php
 systemctl status php7.0-fpm
 ```
-
-- Add 2 users: (password raspberry)
+ - Add 2 users: (password raspberry)
 ```
 adduser pi-star
 adduser mmdvm
@@ -121,7 +132,7 @@ usermod -aG sudo mmdvm
 visudo
 # vi quitting is by Ctrl+
 ```
-- Add nginx:
+ - Add nginx:
 ```
 apt install -y nginx
 # default - keep when asking
@@ -131,24 +142,21 @@ rm /etc/nginx/sites-enabled/default
 systemctl start nginx
 systemctl status nginx
 ```
-- Pi-star update, upgrade and add my script to run on startup
+ - Pi-star update, upgrade and add a script to run on startup
 ```
 pistar-update
 #again:
 pistar-update
 pistar-upgrade
+#
 crontab -e
 # add a line at the end: 
 @reboot  /home/pi-star/z_my.sh
-
-reboot
 ```
-- Access the Web interface, activate the hat, change to your settings / restore conf. if you have one.
+ - Access the Web interface, activate the hat, change to your settings / restore conf. if you have one.
+ - Check the modem and enable services
 ```
 pistar-findmodem
-```
-- Services enable
-```
 systemctl daemon-reload
 systemctl enable dapnetgateway.service
 systemctl enable dgidgateway.service
@@ -174,7 +182,7 @@ systemctl enable ysfgateway.service
 systemctl enable ysfparrot.service
 reboot
 ```
- - **For C2 only** : OLED on /dev/i2c-1, 3(SDA), 5(SCL) activate: (permanent)
+ - **For C2 only** : OLED on /dev/i2c-1, 3(SDA), 5(SCL) activate i2C-1: (permanent)
  ```
 modprobe aml_i2c
 echo "aml_i2c" | sudo tee /etc/modules
@@ -183,11 +191,7 @@ echo "aml_i2c" | sudo tee /etc/modules
 ```
 /home/pi-star/install_fw_hsdualhat.sh
 ``` 
-- Use this script for recreating the essentials tgz
-```
-tar zcvf /tmp/pi-odro-c2-4.tgz -T /home/pi-star/file-list
-```
-- **Additional notes**  
+ - **Additional notes**  
 a) Odroid C4 has issues with I2C so the OLED type 3 may not work.
 b) To ensure better startup, you can add a reset mmdvm hat line to **/home/pi-star/z_my.sh**
 ```
@@ -195,22 +199,24 @@ pistar-mmdvmhshatreset
 # you can add pistar-update here, too
 # comment all lines like /usr/local/sbin/aprsgateway.service start
 ```
-c)**pistar-clone-c2** or **pistar-clone-c4** commands can be used to create a SD card image that fits to 4GB  
+c) **pistar-clone-c2** or **pistar-clone-c4** commands can be used to create a SD card image that fits to 4GB  
 *Warning - it may destroy your working partition in case of errors!*  
 **Verify UUID:** Mount the newly cloned partition and find by **blkid** command the UUID="xxxx....,   
 Example, /dev/sdc2: UUID="96d8a621-b8f2-45b9-8f95-35bdbb83afc7" TYPE=...
 ```
 blkid 
 ```
-If needed, edit the line in the new boot.ini at cloned SD first partition to match the cloned root partition UUID
+Check the line in the new **boot.ini** on cloned SD' first partition to match the cloned root partition UUID
 ```
 setenv bootargs "root=UUID=96d8a621-b8f2-45b9-8f95-35bdbb83afc7 ...
 ```
 **Also:** check for matching UUID in /etc/fstab
+d) You can do this to recreate the essentials tgz file from your live system to /tmp:
+```
+tar zcvf /tmp/pi-odro-c2-4.tgz -T /home/pi-star/file-list
+```
 
-- Enjoy
-
-# Useful links to setup your DMR Gateway 
+## Useful links to setup your DMR Gateway 
 
 https://github.com/g4klx/DMRGateway/wiki/Rewrite-Rules  
 
@@ -221,10 +227,12 @@ https://freestar.network/tools/dmrplus-options-generator.php
 https://www.freedmr.uk/index.php/static-talk-groups-pi-star/
 
 
-# Next
+## Next
 Similar boards to explore, they should work same way , example AML-S905X-CC, see 
 
 [Here](https://www.aliexpress.com/item/1005005163398168.html)
 
 [Here](https://www.loverpi.com/products/libre-computer-aml-s905x-cc-le-potato-with-heatsink-and-wifi-4?variant=39845153701946)
 
+
+ - Enjoy
