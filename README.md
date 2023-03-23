@@ -192,7 +192,7 @@ echo "aml_i2c" | sudo tee /etc/modules
 /home/pi-star/install_fw_hsdualhat.sh
 ``` 
  - **Additional notes**  
-a) Odroid C4 has issues with I2C so the OLED type 3 may not work.
+a) Odroid C4 has issues with I2C so the OLED type 3 may not work.  
 b) To ensure better startup, you can add a reset mmdvm hat line to **/home/pi-star/z_my.sh**
 ```
 pistar-mmdvmhshatreset
