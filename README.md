@@ -215,7 +215,7 @@ d) You can do this to recreate the essentials tgz file from your live system to 
 ```
 tar zcvf /tmp/pi-odro-c2-4.tgz -T /home/pi-star/file-list
 ```
-e) **Shell In A Box** - a forgotten thing can be added to allow the shell in web interface
+e) **shellinabox** - a forgotten package can be added to allow the shell in web interface
 ```
 apt install shellinabox
 systemctl enable shellinabox
@@ -230,6 +230,12 @@ SHELLINABOX_ARGS="--no-beep --disable-ssl-menu --disable-ssl --css=/etc/shellina
 restart shellinabox
 ```
 systemctl restart shellinabox
+```
+f) **firewall: iptables-persistent** - another package the can be added for persistent iptables 
+```
+pistar-firewall
+apt install iptables-persistent
+netfilter-persistent save
 ```
 
 ## Useful links to setup your DMR Gateway 
