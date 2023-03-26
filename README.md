@@ -50,7 +50,7 @@ This HAT board needs soldering (shorting) of boot1 jumper to be able to program.
 
 # SW Installation Steps
 
- - Flash the OS image and boot the board
+ - Flash a fresh Ubuntu OS image and boot the board
  - Use direct HDMA monitor and keyoboard or 
  - Get remote SSH Wired or WiFi by a USB dongle:
 ```
@@ -85,7 +85,7 @@ tar zxvf pi-odro-c2-4.tgz -C /
 ```
  - Fix release strings, e.g use editor: nano /etc/pistar-release
  
-**For C2:**
+**Odroid C2:**
 ```
 [Pi-Star]
 Pi-Star_Build_Date = 08-Feb-2021
@@ -96,7 +96,7 @@ MMDVMHost = 20200615_Pi-Star_v4
 kernel = 3.16
 Hardware = Odroid-C2
 ```
-**For C4:** :
+**Odroid C4:** :
 ```
 [Pi-Star]
 Pi-Star_Build_Date = 08-Feb-2021
@@ -182,7 +182,7 @@ systemctl enable ysfgateway.service
 systemctl enable ysfparrot.service
 reboot
 ```
- - **For C2 only** : OLED on /dev/i2c-1, 3(SDA), 5(SCL) activate i2C-1: (permanent)
+ - **Odroid C2 only** : OLED on /dev/i2c-1, 3(SDA), 5(SCL) activate i2C-1: (permanent)
  ```
 modprobe aml_i2c
 echo "aml_i2c" | sudo tee /etc/modules
@@ -236,6 +236,51 @@ f) **firewall: iptables-persistent** - another package the can be added for pers
 pistar-firewall
 apt install iptables-persistent
 netfilter-persistent save
+```
+g) Enable the NextionDriver (for MMDVMHost) if you use such screen to enhance:
+See: https://github.com/PD0DIB/NextionDriver#readme
+```
+nano /lib/systemd/system/nextion-helper.service
+```
+paste:
+```
+[Unit]
+Description=Nextion Helper Service Service
+After=syslog.target network.target
+Before= mmdvmhost.service
+
+[Service]
+User=root
+Type=forking
+ExecStart=/usr/local/bin/NextionDriver -c /etc/mmdvmhost
+ExecStop=/usr/bin/killall NextionDriver
+
+[Install]
+WantedBy=multi-user.target
+```
+modify to start together (or maybe not this way#)
+```
+nano /lib/systemd/system/mmdvmhost.service
+```
+paste:
+```
+[Unit]
+Description=MMDVMHost Radio Servce
+After=syslog.target network.target
+#BindsTo=nextion-helper.service
+
+[Service]
+Type=forking
+ExecStart=/usr/local/sbin/mmdvmhost.service start
+ExecStop=/usr/local/sbin/mmdvmhost.service stop
+ExecReload=/usr/local/sbin/mmdvmhost.service restart
+
+[Install]
+WantedBy=multi-user.target
+```
+enable the helper:
+```
+systemctl enable nextion-helper.service
 ```
 
 ## Useful links to setup your DMR Gateway 
