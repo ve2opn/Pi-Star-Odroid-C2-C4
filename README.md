@@ -250,36 +250,17 @@ After=syslog.target network.target
 Before= mmdvmhost.service
 
 [Service]
-User=root
-Type=forking
-ExecStart=/usr/local/bin/NextionDriver -c /etc/mmdvmhost
-ExecStop=/usr/bin/killall NextionDriver
+ExecStart=/usr/local/sbin/nextiondriver.service start
+ExecStop=/usr/local/sbin/nextiondriver.service stop
+ExecReload=/usr/local/sbin/nextiondriver.service restart
 
 [Install]
 WantedBy=multi-user.target
 ```
-modify to start together (or maybe not this way#)
-```
-nano /lib/systemd/system/mmdvmhost.service
-```
-paste:
-```
-[Unit]
-Description=MMDVMHost Radio Servce
-After=syslog.target network.target
-#BindsTo=nextion-helper.service
 
-[Service]
-Type=forking
-ExecStart=/usr/local/sbin/mmdvmhost.service start
-ExecStop=/usr/local/sbin/mmdvmhost.service stop
-ExecReload=/usr/local/sbin/mmdvmhost.service restart
-
-[Install]
-WantedBy=multi-user.target
-```
 enable the helper:
 ```
+systemctl daemon-reload
 systemctl enable nextion-helper.service
 ```
 
