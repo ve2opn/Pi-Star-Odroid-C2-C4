@@ -237,31 +237,10 @@ pistar-firewall
 apt install iptables-persistent
 netfilter-persistent save
 ```
-g) Enable the NextionDriver (for MMDVMHost) if you use such screen to enhance:
-See: https://github.com/PD0DIB/NextionDriver#readme
+g) Enable the NextionDriver (for MMDVMHost) if you use such screen to enhance, see: https://github.com/PD0DIB/NextionDriver#readme  
+or add a line to **/home/pi-star/z_my.sh**  
 ```
-nano /lib/systemd/system/nextion-helper.service
-```
-paste:
-```
-[Unit]
-Description=Nextion Helper Service Service
-After=syslog.target network.target
-Before= mmdvmhost.service
-
-[Service]
-ExecStart=/usr/local/sbin/nextiondriver.service start
-ExecStop=/usr/local/sbin/nextiondriver.service stop
-ExecReload=/usr/local/sbin/nextiondriver.service restart
-
-[Install]
-WantedBy=multi-user.target
-```
-
-enable the helper:
-```
-systemctl daemon-reload
-systemctl enable nextion-helper.service
+/usr/local/sbin/nextiondriver.service start
 ```
 
 ## Useful links to setup your DMR Gateway 
