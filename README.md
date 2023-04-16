@@ -253,6 +253,7 @@ https://freestar.network/tools/dmrplus-options-generator.php
 
 https://www.freedmr.uk/index.php/static-talk-groups-pi-star/
 
+http://www.hs9awo.com/nextion1/  
 
 ## Next
 Similar boards to explore, they should work same way , example AML-S905X-CC, see 
