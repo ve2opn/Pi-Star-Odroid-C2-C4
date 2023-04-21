@@ -50,16 +50,17 @@ This HAT board needs soldering (shorting) of boot1 jumper to be able to program.
 
 # SW Installation Steps
 
- - Flash a fresh Ubuntu OS image and boot the board
- - Use direct HDMA monitor and keyoboard or 
- - Get remote SSH Wired or WiFi by a USB dongle:
+ - Flash a fresh Ubuntu OS image and boot  
+ - Use direct HDMI monitor and USB keyboard or   
+ - Get remote SSH access by wired or WiFi USB dongle:  
 ```
 nmcli d wifi
 nmcli d wifi connect XXXX password YYYY
 systemctl status ssh
 ```
  - Login as root:odroid 
- - Add armhf arch: https://unix.stackexchange.com/questions/625576/how-to-run-32-bit-armhf-binaries-on-64-bit-arm64-debian-os-on-raspberry-pi
+ - Add armhf foreign architecture, see here:   
+ https://unix.stackexchange.com/questions/625576/how-to-run-32-bit-armhf-binaries-on-64-bit-arm64-debian-os-on-raspberry-pi
 ```
 dpkg --add-architecture armhf
 dpkg --print-architecture
@@ -74,7 +75,7 @@ apt install -y libstdc++6:armhf
 apt install -y linux-libc-dev:armhf
 apt install -y libc6-dev:armhf
 ```
- - Get the essentials from my extraction:
+ - Get the pi-star essentials from my extraction:
 ```
 cd /tmp
 wget https://github.com/ve2opn/Pi-Star-Odroid-C2-C4/releases/download/1.1/pi-odro-c2-4.tgz
@@ -83,7 +84,7 @@ systemctl stop nginx
 systemctl stop php7.0-fpm
 tar zxvf pi-odro-c2-4.tgz -C /
 ```
- - Fix release strings, e.g use editor: nano /etc/pistar-release
+ - Fix release strings, e.g. use editor: nano /etc/pistar-release
  
 **Odroid C2:**
 ```
@@ -112,7 +113,7 @@ Hardware = Odroid-C4
 apt install -y ntp avahi-daemon miniupnpc file zip git curl net-tools parted rsync dosfstools python2 stm32flash
 ln /usr/bin/python2 /usr/bin/python
 ```
- - Add and check PHP7.0: https://tecadmin.net/install-php-ubuntu-20-04/
+ - Add PHP7.0: https://tecadmin.net/install-php-ubuntu-20-04/
 ```
 apt install -y software-properties-common ca-certificates lsb-release apt-transport-https 
 LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php  
@@ -121,7 +122,7 @@ apt install -y php7.0-cli php7.0-common php7.0-fpm php7.0-json php7.0-mbstring p
 apt list --installed | grep -i php
 systemctl status php7.0-fpm
 ```
- - Add 2 users: (password raspberry)
+ - Add 2 users: (password raspberry):  
 ```
 adduser pi-star
 adduser mmdvm
@@ -142,7 +143,7 @@ rm /etc/nginx/sites-enabled/default
 systemctl start nginx
 systemctl status nginx
 ```
- - Pi-star update, upgrade and add a script to run on startup
+ - Pi-star update, upgrade and add a script to run on startup:  
 ```
 pistar-update
 #again:
@@ -154,7 +155,7 @@ crontab -e
 @reboot  /home/pi-star/z_my.sh
 ```
  - Access the Web interface, activate the hat, change to your settings / restore conf. if you have one.
- - Check the modem and enable services
+ - Check the modem and enable services:  
 ```
 pistar-findmodem
 systemctl daemon-reload
