@@ -238,23 +238,21 @@ pistar-firewall
 apt install iptables-persistent
 netfilter-persistent save
 ```
-g) Enable the NextionDriver (for MMDVMHost) if you use such screen to enhance, see: https://github.com/PD0DIB/NextionDriver#readme  
-or add a line to **/home/pi-star/z_my.sh**  
+g) Enable the NextionDriver (for MMDVMHost) if you use such screen to enhance see:   
+https://github.com/PD0DIB/NextionDriver#readme  
+https://github.com/WA6HXG  
+http://www.hs9awo.com/nextion1/
+
+You can add a line to **/home/pi-star/z_my.sh**  
 ```
 /usr/local/sbin/nextiondriver.service start
 ```
-
 ## Useful links to setup your DMR Gateway 
 
 https://github.com/g4klx/DMRGateway/wiki/Rewrite-Rules  
-
 https://freestar.network/dmrplus-options-explained/  
-
 https://freestar.network/tools/dmrplus-options-generator.php  
-
 https://www.freedmr.uk/index.php/static-talk-groups-pi-star/
-
-http://www.hs9awo.com/nextion1/  
 
 ## Next
 Similar boards to explore, they should work same way , example AML-S905X-CC, see 
