@@ -200,8 +200,11 @@ pistar-mmdvmhshatreset
 # you can add pistar-update here, too
 # comment all lines like /usr/local/sbin/aprsgateway.service start
 ```
-c) **pistar-clone-c2** or **pistar-clone-c4** commands can be used to create a SD card image that fits to 4GB  
+c) **pistar-clone-c2** or **pistar-clone-c4** commands can be used to create a SD card image that fits to 8GB+ size  
+You can try to fit to 4GB with command flag -4  
+
 *Warning - it may destroy your working partition in case of errors!*  
+*Next verifications are optional, e.g. if something is wrong*  
 **Verify UUID:** Mount the newly cloned partition and find by **blkid** command the UUID="xxxx....,   
 Example, /dev/sdc2: UUID="96d8a621-b8f2-45b9-8f95-35bdbb83afc7" TYPE=...
 ```
@@ -211,8 +214,14 @@ Check the line in the new **boot.ini** on cloned SD' first partition to match th
 ```
 setenv bootargs "root=UUID=96d8a621-b8f2-45b9-8f95-35bdbb83afc7 ...
 ```
-**Also:** check for matching UUID in /etc/fstab
-d) You can do this to recreate the essentials tgz file from your live system to /tmp:
+**Also:** check for matching UUID in /etc/fstab  
+
+If you have a large SD card, you can expand the root to take unused space by:  
+```
+pistar-expand
+```
+
+d) You can do following to recreate the essentials tgz file from your live system to /tmp:
 ```
 tar zcvf /tmp/pi-odro-c2-4.tgz -T /home/pi-star/file-list
 ```
