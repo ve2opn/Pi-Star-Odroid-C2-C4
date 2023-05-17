@@ -256,6 +256,29 @@ You can add a line to **/home/pi-star/z_my.sh**
 ```
 /usr/local/sbin/nextiondriver.service start
 ```
+h) **cron hourly and daily** - add the pistar jobs this way:
+```
+nano /etc/cron.daily/pistar-daily
+```
+paste the following:
+```
+#!/bin/bash
+/usr/local/sbin/pistar-daily.cron
+```
+then hourly:
+```
+nano /etc/cron.hourly/pistar-hourly
+```
+paste the following:
+```
+#!/bin/bash
+/usr/local/sbin/pistar-hourly.cron
+```
+make them executable:
+```
+chmod 0755 /etc/cron.hourly/pistar-hourly
+chmod 0755 /etc/cron.daily/pistar-daily
+```
 ## Useful links to setup your DMR Gateway 
 
 https://github.com/g4klx/DMRGateway/wiki/Rewrite-Rules  
