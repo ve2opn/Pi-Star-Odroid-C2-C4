@@ -278,6 +278,8 @@ make them executable:
 ```
 chmod 0755 /etc/cron.hourly/pistar-hourly
 chmod 0755 /etc/cron.daily/pistar-daily
+chmod 644 /etc/crontab
+/etc/init.d/cron reload
 ```
 ## Useful links to setup your DMR Gateway 
 
