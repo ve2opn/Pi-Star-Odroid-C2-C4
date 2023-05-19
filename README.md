@@ -176,6 +176,7 @@ systemctl enable pistar-ap.service
 systemctl enable pistar-remote.service
 systemctl enable pistar-upnp.service
 systemctl enable pistar-watchdog.service
+systemctl enable timeserver.service
 systemctl enable ysf2dmr.service
 systemctl enable ysf2nxdn.service
 systemctl enable ysf2p25.service
@@ -256,7 +257,7 @@ You can add a line to **/home/pi-star/z_my.sh**
 ```
 /usr/local/sbin/nextiondriver.service start
 ```
-h) **cron hourly and daily** - add the pistar jobs this way:
+h) Another forgotten thing to add **cron hourly and daily**:
 ```
 nano /etc/cron.daily/pistar-daily
 ```
@@ -274,13 +275,19 @@ paste the following:
 #!/bin/bash
 /usr/local/sbin/pistar-hourly.cron
 ```
-make them executable:
+make them executable, check permissions, reload:
 ```
 chmod 0755 /etc/cron.hourly/pistar-hourly
 chmod 0755 /etc/cron.daily/pistar-daily
 chmod 644 /etc/crontab
 /etc/init.d/cron reload
 ```
+i) Other missing files found ... (and they should be added to file-list on next release update):   
+/lib/systemd/system/timeserver.service  
+/lib/systemd/system/timeserver.timer  
+/lib/systemd/system/ircddbgateway.service  
+/lib/systemd/system/ircddbgateway.timer  
+
 ## Useful links to setup your DMR Gateway 
 
 https://github.com/g4klx/DMRGateway/wiki/Rewrite-Rules  
