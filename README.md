@@ -110,9 +110,9 @@ Hardware = Odroid-C4
 ```
  - Add packages:
 ```
-apt install -y ntp avahi-daemon miniupnpc file zip git curl net-tools parted rsync dosfstools python2 stm32flash
+apt install -y ntp avahi-daemon miniupnpc file zip git curl net-tools hostapd iptables-persistent shellinabox parted rsync dosfstools python2 stm32flash
 ln /usr/bin/python2 /usr/bin/python
-```
+``` 
  - Add PHP7.0: https://tecadmin.net/install-php-ubuntu-20-04/
 ```
 apt install -y software-properties-common ca-certificates lsb-release apt-transport-https 
@@ -226,7 +226,7 @@ d) You can do following to recreate the essentials tgz file from your live syste
 ```
 tar zcvf /tmp/pi-odro-c2-4.tgz -T /home/pi-star/file-list
 ```
-e) **shellinabox** - a forgotten package can be added to allow the shell in web interface
+e) **shellinabox** - shell in web interface (install if not done earlier)  
 ```
 apt install shellinabox
 systemctl enable shellinabox
@@ -242,7 +242,7 @@ restart shellinabox
 ```
 systemctl restart shellinabox
 ```
-f) **firewall: iptables-persistent** - another package the can be added for persistent iptables 
+f) **firewall: iptables-persistent** - firewall stuff (install if not done earlier) and tune  
 ```
 pistar-firewall
 apt install iptables-persistent
