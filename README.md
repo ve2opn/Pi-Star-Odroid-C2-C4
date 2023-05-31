@@ -223,9 +223,10 @@ pistar-expand
 ```
 
 d) You can do following to recreate updated essentials tgz file from your live (i.e. from an original Pi-Star on raspberry) system to /tmp:  
-Use the most recent file-list from this repo.
+Use the most recent file-list from this repo:
 ```
-tar zcvf /tmp/pi-odro-c2-4.tgz -T /home/pi-star/file-list
+wget --no-check-certificate -O /tmp/file-list https://raw.githubusercontent.com/ve2opn/Pi-Star-Odroid-C2-C4/main/file-list
+tar zcvf /tmp/pi-odro-c2-4.tgz -T /tmp/file-list
 ```
 e) **shellinabox** - shell in web interface (install if not done earlier)  
 ```
