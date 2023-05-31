@@ -222,7 +222,8 @@ If you have a large SD card, you can expand the root to take unused space by:
 pistar-expand
 ```
 
-d) You can do following to recreate the essentials tgz file from your live system to /tmp:
+d) You can do following to recreate updated essentials tgz file from your live (i.e. from an original Pi-Star on raspberry) system to /tmp:  
+Use the most recent file-list from this repo.
 ```
 tar zcvf /tmp/pi-odro-c2-4.tgz -T /home/pi-star/file-list
 ```
