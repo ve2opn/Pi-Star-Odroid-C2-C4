@@ -78,7 +78,7 @@ apt install -y libc6-dev:armhf
  - Get the pi-star essentials from my extraction:
 ```
 cd /tmp
-wget https://github.com/ve2opn/Pi-Star-Odroid-C2-C4/releases/download/1.1/pi-odro-c2-4.tgz
+wget https://github.com/ve2opn/Pi-Star-Odroid-C2-C4/releases/download/1.2/pi-odro-c2-4.tgz
 # Just in case is not first time here
 systemctl stop nginx
 systemctl stop php7.0-fpm
@@ -145,6 +145,7 @@ systemctl status nginx
 ```
  - Pi-star update, upgrade and add a script to run on startup:  
 ```
+#pistar-update -f triggers OS update as well
 pistar-update
 #again:
 pistar-update
@@ -228,29 +229,12 @@ Use the most recent file-list from this repo:
 wget --no-check-certificate -O /tmp/file-list https://raw.githubusercontent.com/ve2opn/Pi-Star-Odroid-C2-C4/main/file-list
 tar zcvf /tmp/pi-odro-c2-4.tgz -T /tmp/file-list
 ```
-e) **shellinabox** - shell in web interface (install if not done earlier)  
-```
-apt install shellinabox
-systemctl enable shellinabox
-nano /etc/default/shellinabox
-```
-replace the contents of the file - paste following into /etc/default/shellinabox
-```
-SHELLINABOX_DAEMON_START=1
-SHELLINABOX_PORT=2222
-SHELLINABOX_ARGS="--no-beep --disable-ssl-menu --disable-ssl --css=/etc/shellinabox/options-enabled/00_White\ On\ Black.css"
-```
-restart shellinabox
-```
-systemctl restart shellinabox
-```
-f) **firewall: iptables-persistent** - firewall stuff (install if not done earlier) and tune  
+e) **firewall: iptables-persistent** - firewall stuff
 ```
 pistar-firewall
-apt install iptables-persistent
 netfilter-persistent save
 ```
-g) Enable the NextionDriver (for MMDVMHost) if you use such screen to enhance see:   
+f) Enable the NextionDriver (for MMDVMHost) if you use such screen to enhance see:   
 https://github.com/PD0DIB/NextionDriver#readme  
 https://github.com/WA6HXG  
 http://www.hs9awo.com/nextion1/
@@ -259,36 +243,7 @@ You can add a line to **/home/pi-star/z_my.sh**
 ```
 /usr/local/sbin/nextiondriver.service start
 ```
-h) Another forgotten thing to add **cron hourly and daily**:
-```
-nano /etc/cron.daily/pistar-daily
-```
-paste the following:
-```
-#!/bin/bash
-/usr/local/sbin/pistar-daily.cron
-```
-then hourly:
-```
-nano /etc/cron.hourly/pistar-hourly
-```
-paste the following:
-```
-#!/bin/bash
-/usr/local/sbin/pistar-hourly.cron
-```
-make them executable, check permissions, reload:
-```
-chmod 0755 /etc/cron.hourly/pistar-hourly
-chmod 0755 /etc/cron.daily/pistar-daily
-chmod 644 /etc/crontab
-/etc/init.d/cron reload
-```
-i) Other missing files found ... (and they should be added to file-list on next release update):   
-/lib/systemd/system/timeserver.service  
-/lib/systemd/system/timeserver.timer  
-/lib/systemd/system/ircddbgateway.service  
-/lib/systemd/system/ircddbgateway.timer  
+
 
 ## Useful links to setup your DMR Gateway 
 
