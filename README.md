@@ -110,7 +110,7 @@ Hardware = Odroid-C4
 ```
  - Add packages:
 ```
-apt install -y ntp avahi-daemon miniupnpc file zip git curl net-tools hostapd iptables-persistent shellinabox parted rsync dosfstools python2 stm32flash
+apt install -y ntp avahi-daemon miniupnpc file zip git curl net-tools hostapd fake-hwclock iptables-persistent shellinabox parted rsync dosfstools python2 stm32flash
 ln /usr/bin/python2 /usr/bin/python
 ``` 
  - Add PHP7.0: https://tecadmin.net/install-php-ubuntu-20-04/
@@ -190,8 +190,10 @@ reboot
 modprobe aml_i2c
 echo "aml_i2c" | sudo tee /etc/modules
 ```
-- Use this script for FW update of the HAT
+- Use these scripts for HAT Firmware update (may need editing for another HAT or FW rev.):
 ```
+/usr/local/bin/install_fw_hsdualhat_local_152.sh
+# or
 /home/pi-star/install_fw_hsdualhat.sh
 ``` 
  - **Additional notes**  
@@ -223,8 +225,8 @@ If you have a large SD card, you can expand the root to take unused space by:
 pistar-expand
 ```
 
-d) You can do following to recreate updated essentials tgz file from your live (i.e. from an original Pi-Star on raspberry) system to /tmp:  
-Use the most recent file-list from this repo:
+d) You can do following to recreate an updated essentials tgz file to /tmp:    
+Use the file-list from this repo:
 ```
 wget --no-check-certificate -O /tmp/file-list https://raw.githubusercontent.com/ve2opn/Pi-Star-Odroid-C2-C4/main/file-list
 tar zcvf /tmp/pi-odro-c2-4.tgz -T /tmp/file-list
